@@ -1,5 +1,5 @@
 # nuxttest
-This is an experimentary NuxtJs project. It contains a contact page.
+This is an experimentary NuxtJs project. It contains a bilingual contact page.
 
 ## Build Setup
 ``` bash
