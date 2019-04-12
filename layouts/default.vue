@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
     <Header />
-    <nuxt />
+    <nuxt :style="{ direction: direction }"/>
   </div>
 </template>
 
@@ -11,7 +11,13 @@
   export default {
     components: {
       Header
-    }
+    },
+    computed: {
+      direction: function(){
+        return this.$store.getters.language === "fa" ?
+                "rtl" : "ltr";
+      }
+    },  
   }
 </script>
 

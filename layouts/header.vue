@@ -24,7 +24,8 @@
 <style>
   .header{
     background-color: #ccc;
-    width: 100%;
+    left: 0;
+    right: 0;
     position: fixed;
     height: 3rem;
     padding: 0.5rem;
