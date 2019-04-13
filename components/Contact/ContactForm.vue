@@ -29,6 +29,11 @@ import AppControlInput from "@/components/UI/AppControlInput";
 import AppButton from "@/components/UI/AppButton";
 import Vue from "vue";
 
+let miniToastr
+if (process.client) {
+  miniToastr = require('mini-toastr')
+}
+
 export default {
   components: {
     AppControlInput,
@@ -44,6 +49,19 @@ export default {
       notification: "",
       result: ""
     };
+  },  
+  mounted() {
+    if(miniToastr != null)
+      miniToastr.default.init()
+
+    this.showNotif()
+  },
+  notifications: {
+    showNotif:{
+        title: 'Welcome!',
+        message: "Hello. For testing notifications!",
+        type: 'info'
+      }
   },
   computed:{
     checkForm(){
@@ -53,22 +71,28 @@ export default {
     }
   },
   methods: {
-    onSave() {
-      new Promise((resolve, reject) => {
+    async onSave() {
+      try {
+        let result = await this.simulateBackend();
+        if(result){
+          this.result = true
+          this.notification = this.tnotif('successfullySentMsg')
+        }
+      } catch (error) {
+        this.result = false
+        this.notification = this.tnotif('errorSendingMsg')
+      }
+    },
+    simulateBackend(){
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
           // Random boolean result
           let result = this.randomBoolean();
           if(result)
             resolve(true);
           else
-            reject(); 
+            reject(false); 
         }, 600);
-      }).then((res) => {
-          this.result = true
-          this.notification = this.tnotif('successfullySentMsg')
-      }).catch(() => {
-          this.result = false
-          this.notification = this.tnotif('errorSendingMsg')
       });
     },
     randomBoolean(){
