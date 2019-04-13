@@ -29,7 +29,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/i18n'],
+  plugins: [
+              { src: '~/plugins/i18n' },
+              
+              // ssr: false to only include it on client-side
+              { src: '~/plugins/vue-notifications.js', ssr: false }
+           ],
 
   /*
    ** Nuxt.js modules
